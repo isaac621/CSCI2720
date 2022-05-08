@@ -7,11 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="login">123</div>
+    <button id="login">login</button>
     <button id="get">getLocation</button>
     <script defer>
         document.getElementById('login').addEventListener('click', async(e)=>{
-
+            //Store the fetched jwt token into local storage
             const res = fetch('http://localhost:3000/users/login',
             {
                 method: 'POST',
@@ -26,7 +26,9 @@
             }).then(res=>res.json()).then(res=>localStorage.setItem('jwt', res.accessToken)).catch(err=>console.log(err))
             return 
         })
+
         document.getElementById('get').addEventListener('click', async(e)=>{
+            
             const jwt = localStorage.getItem('jwt')
             console.log(jwt)
             const response = await fetch('http://localhost:3000/users/location/get/2', {

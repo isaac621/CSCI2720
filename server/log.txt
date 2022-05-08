@@ -2591,3 +2591,9 @@
   "Request method": "GET",
   "Request URL": "/users/location/get/2"
 }
+{
+  "Request Time": "Sun, 08 May 2022 18:04:12 GMT",
+  "User IP": "::1",
+  "Request method": "GET",
+  "Request URL": "/"
+}
