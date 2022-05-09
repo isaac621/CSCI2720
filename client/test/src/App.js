@@ -85,6 +85,12 @@ function Login(){
 
   return(
     <div>
+      <div>
+        username: user1
+        <br/>
+        password: user1
+      </div>
+      <br/>
       <label>username</label>
       <input onChange={usernameOnChangeHandler}/>
       <br/>
