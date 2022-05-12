@@ -428,7 +428,7 @@ app.post('/admin/location/update', authenticateAdminToken, async(req, res)=>{
 
         await locationToUpdate.save()
         
-        return res.status(200).send()
+        return res.status(200).send("Updated Successfully")
     }
     catch(err){
         console.log(err)

@@ -1,0 +1,122 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.container-page{
+    height: 100vh;
+}
+
+#titlebar{
+    min-height: 20px;
+    max-height: 30%;
+    text-align: center;
+    color: #dbf1f1;
+
+    top:0;
+    z-index: 1;
+    background-image: url('./header.jpg');
+    background-size: cover;
+    position:relative;
+    
+}
+
+
+
+
+#adminlogin_logo{
+    position: absolute;
+    left: 47.5%;
+    top: 35.5%;
+    z-index:2;
+}
+
+
+
+form p >*{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#adminlogin_logo{
+    margin-top: -20px;
+}
+#adminimage_logo {
+    margin-top: 52px;
+}
+
+
+.label_input {
+    width: 50px;
+    height: 50px;
+    line-height: 28px;
+}
+
+
+
+
+#btn_login {
+    font-family: fantasy;
+    font-size: 36px;
+    margin-left: 70px;
+    width: 328px;
+    height: 50px;
+    line-height: 28px;
+    text-align: center;
+ 
+    color: #56596c ;
+    background-color: white;
+    border-radius: 4px;
+    border: 0;
+ 
+    float: left;
+}
+
+
+
+.adminText{
+     margin-left: 10%;
+     transition: 2s;
+
+ }
+
+
+
+
+.adminLabel{
+    font-family: "Lucida Console", Courier, monospace;
+    text-align : left;
+    
+}
+
+
+.adminVerNav a{
+    
+    width: 10%;
+    padding: 10% 10% 10% 10%;
+    text-decoration: none;
+    font-size: 100%;
+    color: #818181;
+    border: none;
+    display: block;
+}
+.back{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-image: url('./background.jpg');
+    background-size: cover;
+   }
+
+.navOpen button{
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    color: yellow;
+    
+    border: none;
+}
