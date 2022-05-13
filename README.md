@@ -12,9 +12,9 @@ Group Member:
 Website URL: http://localhost:3001/
 
 Server command:
-  \n\t$cd server
-  \t$npm i
-  \t$npm run start
+  $cd server
+  $npm i
+  $npm run start
  
 Frontend commands:
   $cd client
