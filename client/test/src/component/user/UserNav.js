@@ -50,7 +50,10 @@ export default function UserNav({setTheme, theme}){
       <Box sx={Style.nav} > 
         <Box sx={{position: 'absolute', left: 50, display: 'flex', alignItems: 'center'}}>
           <Typography variant="body1" color="primary.light" >Username: {username} </Typography>
-          <Switch onClick={switchOnClickHandler} checked={theme} />
+          
+            
+            <Switch onClick={switchOnClickHandler} checked={theme} />
+            <Typography variant="caption" color="initial" >Color Scheme</Typography>
         </Box>
         <Stack
         direction="row"
