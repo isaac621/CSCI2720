@@ -4,7 +4,6 @@ import './static/2720proj.css';
 import './static/LEMONMILK-Regular.otf';
 import './static/favicon.ico'
 
-import Login from "./component/admin/Login";
 
 import AdminUsers from "./component/admin/AdminUsers";
 import AdminLocation from "./component/admin/AdminLocation";
@@ -17,6 +16,12 @@ import CreateUser from "./component/admin/User/CreateUser";
 import DeleteUser from "./component/admin/User/DeleteUser";
 import UpdateUser from "./component/admin/User/UpdateUser";
 import ReadUsers from "./component/admin/User/ReadUsers";
+import AdminLogin from "./component/admin/AdminLogin";
+import UserLogin from "./component/user/UserLogin";
+
+import Location from "./component/user/Location";
+import UserPage from "./component/user/UserPage";
+import AllLocations from "./component/user/AllLocations";
 
 
 
@@ -48,13 +53,24 @@ const lightTheme = createTheme({
 
 })
 function App() {
-
   return (
     <ThemeProvider theme={lightTheme}>
       <div className="App">
         <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login/>} />
+          <Route path="/login/admin" element={<AdminLogin/>} />
+          <Route path="/login/user" element={<UserLogin/>} />
+          <Route path="/" element={<UserLogin/>} />
+
+          <Route path="/user" element={<UserPage/>}>
+            <Route path="locations" element={<AllLocations/>}/>
+            <Route path="location/:locationID" element={<Location/>}/>
+          </Route>
+
+         
+
+
+
           <Route path="/admin/location" element={<AdminLocation/>}>
             <Route path="create" element = {<CreateLocation/>}/>
             <Route path="delete" element = {<DeleteLocation/>}/>

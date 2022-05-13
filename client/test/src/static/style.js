@@ -80,6 +80,11 @@ const Style = {
         overflowX: 'hidden',
         paddingTop: '10%',
         transition: '2s'
+    },
+
+    mapContainer: {
+        width: '500px',
+        height: '400px'
     }
 }
 
