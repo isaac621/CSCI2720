@@ -1,207 +1,263 @@
-import {
-    Box,
-    Button,
-    ButtonGroup,
-    Flex,
-    HStack,
-    IconButton,
-    Input,
-    SkeletonText,
-    Text,
-} from '@chakra-ui/react'
-import {
-    // useJsApiLoader,
-    GoogleMap,
-    Marker,
-    Autocomplete,
-    DirectionsRenderer,
-    useLoadScript
-} from '@react-google-maps/api'
-import React, { useRef, useState, useEffect, useMemo } from 'react'
-import {Col, Row} from 'antd';
-import {useNavigate, useParams, useLocation} from 'react-router-dom'; 
+import React, { useState, useEffect } from 'react'
+import { Col, Row, Button, Input, notification } from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
 import _ from 'lodash';
+import 'antd/dist/antd.css';
+import { HeartFilled, UnorderedListOutlined, PlusCircleFilled, GooglePlusOutlined } from '@ant-design/icons';
+
+import Map from './Map';
 
 function Location() {
-    let {locationID} = useParams()
+    let { locationID } = useParams()
+    let navigate = useNavigate()
+    const { TextArea } = Input;
     console.log(locationID)
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: 'AIzaSyDUsMnYpECCQOdWUnCb6JY54vZVrGfwp4Y',
-        // libraries: ['places'],
-    })
 
-    const [map, setMap] = useState(/** @type google.maps.Map */(null))
-    const [location, setLocation] = useState([]);
-    const [marker, setMarker] = useState({lat: 0, lng: 0});
-    const [fetchedData, setFetchedData] = useState({})
-    // const onLoad = React.useCallback(function callback(map) {
-    //     const bounds = new window.google.maps.LatLngBounds(center);
-    //     map.fitBounds(bounds);
-    //     setMap(map)
-    //   }, [])
-    
-    //   const onUnmount = React.useCallback(function callback(map) {
-    //     setMap(null)
-    //   }, [])
+    const [marker, setMarker] = useState({ lat: 0, lng: 0 })
+    const [fetchedData, setFetchedData] = useState([])
+    const [fetchedList, setFetchedList] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [comment, setComment] = useState('')
+    const zoomLevel = 10
 
-    const fetchLocation = async() => {
-        // const jwt = localStorage.getItem('jwt')
-        // console.log(jwt)
-  
+    // fetch details of location 
+    const fetchLocation = async () => {
+
+        setLoading(true);
         const res = await fetch(`http://localhost:3000/users/location/get/${locationID}`, {
-            headers:{
+            headers: {
                 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJjYWM1NGZhZWZlMTc1MGM4NzYxMSIsImlhdCI6MTY1MjI1OTA4MH0.R96Q1GnTSu7FRBOOwwu9u_w8DErxZthBetNmwRsYTI8`
             }
         })
-  
-        if(res.ok){
-            res.json().then(res=>{
+        setLoading(false);
+
+        if (res.ok) {
+            res.json().then(res => {
                 console.log("test", res)
                 console.log("test", res.info.latitude)
                 setFetchedData(res)
-                setMarker({lat: parseFloat(res.info.latitude), lng: parseFloat(res.info.longitude)})
+                setMarker({ lat: parseFloat(res.info.latitude), lng: parseFloat(res.info.longitude) })
             })
         }
+    }
+
+    // fetch user comment data
+    const fetchUserList = async () => {
+
+        setLoading(true);
+        const res = await fetch(`http://localhost:3000/users/favorite`, {
+            headers: {
+                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJjYWM1NGZhZWZlMTc1MGM4NzYxMSIsImlhdCI6MTY1MjI1OTA4MH0.R96Q1GnTSu7FRBOOwwu9u_w8DErxZthBetNmwRsYTI8`
+            }
+        })
+        setLoading(false);
+
+        if (res.ok) {
+            res.json().then(res => {
+                console.log("list", res)
+                setFetchedList(res)
+            })
+        }
+    }
+
+    // add location to favorite list
+    const addFavourite = async () => {
+        let flag = false;
+
+        // check whether or not the location already existed in favorite list
+        _.forEach(fetchedList, (i) => {
+            console.log("i>>", i)
+            if (i?.locationID === _.toInteger(locationID)) {
+                flag = true;
+            }
+        })
+
+        // console.log(flag)
+
+        if (flag) {
+            notification.error({ message: 'Location CANNOT be added', description: 'Locations already existed in favourite list!' });
+        } else {
+            notification.success({ message: 'Location is added SUCCESSFULLY' });
+            setLoading(true);
+            const res = await fetch(`http://localhost:3000/users/favorite/create/${locationID}`, {
+                headers: {
+                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJjYWM1NGZhZWZlMTc1MGM4NzYxMSIsImlhdCI6MTY1MjI1OTA4MH0.R96Q1GnTSu7FRBOOwwu9u_w8DErxZthBetNmwRsYTI8`
+                },
+
+                method: "POST"
+            })
+            setLoading(false);
+
+            if (res.ok) {
+                console.log("result", res)
+            }
+        }
+    }
+
+    // add comment to database
+    const createComments = async () => {
+        setLoading(true);
+        const res = await fetch(`http://localhost:3000/users/comment`, {
+            method: "POST",
+
+            body: JSON.stringify({
+                locID: _.toInteger(locationID),
+                content: comment
+            }),
+
+            headers: {
+                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJjYWM1NGZhZWZlMTc1MGM4NzYxMSIsImlhdCI6MTY1MjI1OTA4MH0.R96Q1GnTSu7FRBOOwwu9u_w8DErxZthBetNmwRsYTI8`,
+                'Content-Type': 'application/json'
+            },
+        })
+        setLoading(false);
+
+        if (res.ok) {
+            console.log("result", res)
+        }
+
+        // refresh page
+        window.location.reload(false)
     }
 
     useEffect(() => {
         fetchLocation()
+        fetchUserList()
     }, [])
 
     console.log("data", fetchedData)
-    console.log("data", marker)
+    console.log("marker", marker)
 
-    if (!isLoaded) {
-        return <SkeletonText>{console.log("cannot load")}</SkeletonText>
+    if (loading) {
+        return null
     }
 
-  return (
-      <div>
-        {/* <Row>
-            <Col span={12}>
-                <GoogleMap
-                        center={marker}
-                        zoom={7}
-                        mapContainerStyle={{ width: '100%', height: '100%' }}
-                        options={{
-                            // zoomControl: false,
-                            streetViewControl: false,
-                            mapTypeControl: false,
-                            fullscreenControl: false,
-                        }}
-                        onLoad={map => setMap(map)}
-                    >
-                        <Marker id={1} key={1} position={marker} className="fuck"/>
-                        {
-                            // markers.map((markers, i) => (
-                            //   <Marker key={i} position={{lat: markers.latitude, lng: markers.longitude}} />
-                            // ))
-                                markers.map((markers, key) => {
-                                    console.log(markers.latitude)
-                                    return (<Marker key={key}
-                                        position={{ lat: _.toInteger(markers.latitude), lng: _.toInteger(markers.longitude) }}
-                                        onClick={() => {
-                                            map.panTo({ lat: _.toInteger(markers.latitude), lng: _.toInteger(markers.longitude) });
-                                            map.setZoom(7);
-                                            setSelectedID(markers.locationID);
-                                            console.log("finger");
-                                            navigate("/location");
-                                        }}
-                                    />)
-                                })
-                        }
-                </GoogleMap>
-            </Col>
-            <Col span={12}>
-                ABC
-            </Col>
-        </Row> */}
-
-        {/* <GoogleMap
-            center={marker}
-            zoom={10}
-            mapContainerStyle={{ width: '100%', height: '100%' }}
-            options={{
-                // zoomControl: false,
-                streetViewControl: false,
-                mapTypeControl: false,
-                fullscreenControl: false,
-            }}
-            onLoad={map => setMap(map)}
-        >
-            <Marker key={0} position={marker}/>
-        </GoogleMap> */}
-        <div>
-            Location ID: {fetchedData.locationID}
+    return (
+        <div style={{ marginLeft: 30, marginRight: 30 }}>
+            <h1>Location Details</h1>
+            <Row gutter={[16, 16]}>
+                <Col span={12}>
+                    <Map center={marker}
+                            zoomLevel={zoomLevel}
+                    />
+                </Col>
+                <Col span={12}>
+                    <div>
+                        Location ID: {fetchedData?.locationID}
+                    </div>
+                    <div>
+                        Location Name: {fetchedData?.info?.name}
+                    </div>
+                    <div>
+                        Location Latitude: {fetchedData?.info?.latitude}
+                    </div>
+                    <div>
+                        Location Longitude: {fetchedData?.info?.longitude}
+                    </div>
+                    <div>
+                        humidity: {fetchedData?.weather?.humidity}
+                    </div>
+                    <div>
+                        precip_mm: {fetchedData?.weather?.precip_mm}
+                    </div>
+                    <div>
+                        temp_c: {fetchedData?.weather?.temp_c}
+                    </div>
+                    <div>
+                        vis_km: {fetchedData?.weather?.vis_km}
+                    </div>
+                    <div>
+                        wind_kph: {fetchedData?.weather?.wind_kph}
+                    </div>
+                    <br />
+                    <div>
+                        <Button type="primary"
+                            icon={<HeartFilled />}
+                            size={'small'}
+                            onClick={
+                                () => {
+                                    addFavourite()
+                                }}>
+                            {' '}Add Location to Favourite
+                        </Button>
+                    </div>
+                    <br />
+                    <div>
+                        <Button type="primary"
+                            icon={<UnorderedListOutlined />}
+                            size={'small'}
+                            onClick={
+                                () => {
+                                    navigate(`/location/favourite`)
+                                }}>
+                            {' '}Checkout Favourite List
+                        </Button>
+                    </div>
+                    <br />
+                    <div>
+                        <Button type="primary"
+                            icon={<GooglePlusOutlined />}
+                            size={'small'}
+                            onClick={
+                                () => {
+                                    navigate(`/map`)
+                                }}>
+                            {' '}Back to Map
+                        </Button>
+                    </div>
+                    <br />
+                </Col>
+                <Col span={12}>
+                    <h3>
+                        User Comments:
+                    </h3>
+                    {
+                        (fetchedData?.comments)?.map((comments) => {
+                            // console.log(comments)
+                            return (
+                                <>
+                                    <div>
+                                        Username: {comments.username}
+                                    </div>
+                                    <div>
+                                        Comment Content: {comments.content}
+                                    </div>
+                                    <div>
+                                        Comment Last Update Time: {comments.updatedAt}
+                                    </div>
+                                    <br />
+                                </>
+                            )
+                        })
+                    }
+                    <h3>
+                        Add your comments below:
+                    </h3>
+                    <TextArea
+                        showCount maxLength={250}
+                        rows={4}
+                        placeholder={'Comments'}
+                        onChange={
+                            (e) => {
+                                setComment(e.target.value)
+                            }}
+                    />
+                    <br />
+                    <br />
+                    <div>
+                        <Button type="primary"
+                            icon={<PlusCircleFilled />}
+                            onClick={
+                                () => {
+                                    createComments()
+                                }}>
+                            {' '}Add
+                        </Button>
+                    </div>
+                </Col>
+            </Row>
         </div>
-        <div>
-            Location Name: {fetchedData.info.name}
-        </div>
-        <div>
-            Location Latitude: {fetchedData.info.latitude}
-        </div>
-        <div>
-            Location Longitude: {fetchedData.info.longitude}
-        </div>
-        <div>
-            humidity: {fetchedData.weather.humidity}
-        </div>
-        <div>
-            precip_mm: {fetchedData.weather.precip_mm}
-        </div>
-        <div>
-            temp_c: {fetchedData.weather.temp_c}
-        </div>
-        <div>
-            vis_km: {fetchedData.weather.vis_km}
-        </div>
-        <div>
-            wind_kph: {fetchedData.weather.wind_kph}
-        </div>
-        <br/>
-        <div>
-            User Comments:
-        </div>
-        {
-            (fetchedData.comments).map((comments, key) => {
-                console.log(comments)
-                return (
-                    <>
-                        <br/>
-                        <div>
-                            Username: {comments.username}
-                        </div>
-                        <div>
-                            Comment Content: {comments.content}
-                        </div>
-                        <div>
-                            Comment Last Update Time: {comments.updatedAt}
-                        </div>
-                    </>
-                )
-            })
-        }
-        <div>
-            Add your comments:
-        </div>
-        {/* <form action="http://localhost:3000/event" method="post">
-
-            <label for="eventname">Event name</label>
-            <input type="text" id="eventname" name="name">
-            <br>
-
-            <label for="locid">Location ID</label>
-            <input type="text" id="locid" name="locId">
-            <br>
-
-            <label for="eventquota">Event quota</label>
-            <input type="text" id="eventquota" name="eventquota">
-            <br>
-            <br>
-            <input type="submit">
-        </form> */}
-      </div>
-  )
+    )
 }
 
 export default Location
