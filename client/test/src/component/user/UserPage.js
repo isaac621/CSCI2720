@@ -1,17 +1,27 @@
 import { Box, Typography, Button } from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, Outlet, Route, Router, Routes } from "react-router-dom"
 import Style from "../../static/style"
 import UserNav from "./UserNav"
 
 
-export default function UserPage(){
-    
-    const [navH, setnavH] = useState()
-
+export default function UserPage({setTheme, theme}){
+  const [themeValue, setThemeValue] = useState(false)  
+  const getTheme = async()=>{
     const jwt = localStorage.getItem('jwt')
-  
+    const res = await fetch('http://localhost:3000/users/theme', {
+         headers: {
+            'Authorization': `Bearer ${jwt}`
+         }
 
+        }).then(res=>res.json())
+        setTheme(res)
+        
+      }
+  
+  useEffect(()=>{
+    getTheme()
+  }, [])
 
     
     
@@ -21,7 +31,7 @@ export default function UserPage(){
       <>
         <div className="back">
             
-            <UserNav/>
+            <UserNav setTheme={setTheme} theme={theme}/>
         
             <Box sx={Style.mainSection}>
                 <Outlet/>

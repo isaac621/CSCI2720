@@ -35,7 +35,7 @@ export default function CreateUser(){
     return(
         <Box sx={Style.formContainer}>
             <Typography variant="h4" color="initial">Create Location</Typography>
-            <Typography>Please enter the username and password of the new user</Typography>
+            <Typography color="initial">Please enter the username and password of the new user</Typography>
             <TextField onChange={(e)=>setUsername(e.target.value)} label="Username"></TextField>
             <TextField onChange={(e)=>setPassword(e.target.value)} label="Password"></TextField>
             <Button variant="contained" color="secondary" onClick={createUser}>Create</Button>

@@ -1,30 +1,35 @@
-import React, {useState} from "react";
+import { Button, InputAdornment, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import { useEffect, useState } from "react";
+import SearchIcon from '@mui/icons-material/Search';
+import { useNavigate } from "react-router-dom";
 
-export default class UserTable extends React.Component {
-    constructor() {
-        super();
-        this.state = {jwt: localStorage.getItem('jwt'), data: [], field: "", inputText: "" }
-    }
+export default function UserTable(){
 
-    fetchData() {
-      fetch(`http://localhost:3000/users/locations`, {
+    const jwt = localStorage.getItem('jwt')
+    const [data, setData] = useState([])
+    const [field, setField] = useState('')
+    const [inputText, setInputText] = useState('')
+    const navigate = useNavigate()
+
+    const fetchData = async()=>{
+      const res = await fetch(`http://localhost:3000/users/locations`, {
         headers:{
-            'Authorization': `Bearer ${this.state.jwt}`
+            'Authorization': `Bearer ${jwt}`
         }
       })
       .then(res => res.json())
-      .then(res => {    
-        this.setState({data: res}) 
-      })
+
+      setData(res)
     }
 
-    logout() {
-      localStorage.removeItem('jwt')
-    }
+    useEffect(()=>{
+        fetchData()
+    }, [])
   
 
-    TempCsort() {
-      const sortedData = this.state.data;
+    function TempCsort() {
+      const sortedData = data;
         for(let i = 0; i < sortedData.length; i++) {
             let min = i;
             for(let j = i+1; j < sortedData.length; j++){
@@ -38,11 +43,12 @@ export default class UserTable extends React.Component {
                  (sortedData[min]) = tmp;
             }
         }
-        this.setState({data: sortedData, field: "temp_c"});
+        setData(sortedData)
+        setField("temp_c")
     }
 
-    WindKphsort() {
-      const sortedData = this.state.data;
+    function WindKphsort() {
+      const sortedData = data;
         for(let i = 0; i < sortedData.length; i++) {
             let min = i;
             for(let j = i+1; j < sortedData.length; j++){
@@ -56,11 +62,13 @@ export default class UserTable extends React.Component {
                  (sortedData[min]) = tmp;
             }
         }
-        this.setState({data: sortedData, field: "wind_kph"});
+       
+        setData(sortedData)
+        setField("wind_kph")
     }
-/*
-    WindDirsort() {
-      const sortedData = this.state.data;
+
+    function WindDirsort() {
+      const sortedData = data;
         for(let i = 0; i < sortedData.length; i++) {
             let min = i;
             for(let j = i+1; j < sortedData.length; j++){
@@ -74,12 +82,13 @@ export default class UserTable extends React.Component {
                  (sortedData[min]) = tmp;
             }
         }
-        this.setState({data: sortedData, field: "wind_dir"});
+        setData(sortedData)
+        setField("wind_dir")
     }
-*/
 
-    Humiditysort() {
-      const sortedData = this.state.data;
+
+    function Humiditysort() {
+      const sortedData = data;
         for(let i = 0; i < sortedData.length; i++) {
             let min = i;
             for(let j = i+1; j < sortedData.length; j++){
@@ -93,11 +102,12 @@ export default class UserTable extends React.Component {
                  (sortedData[min]) = tmp;
             }
         }
-        this.setState({data: sortedData, field: "humidity"});
+        setData(sortedData)
+        setField("humidity")
     }
 
-    PrecipMmsort() {
-      const sortedData = this.state.data;
+    function PrecipMmsort() {
+      const sortedData = data;
         for(let i = 0; i < sortedData.length; i++) {
             let min = i;
             for(let j = i+1; j < sortedData.length; j++){
@@ -111,11 +121,12 @@ export default class UserTable extends React.Component {
                  (sortedData[min]) = tmp;
             }
         }
-        this.setState({data: sortedData, field: "precip_mm"});
+        setData(sortedData)
+        setField("precip_mm")
     }
 
-    VisKmsort() {
-      const sortedData = this.state.data;
+    function VisKmsort() {
+      const sortedData = data;
         for(let i = 0; i < sortedData.length; i++) {
             let min = i;
             for(let j = i+1; j < sortedData.length; j++){
@@ -129,17 +140,24 @@ export default class UserTable extends React.Component {
                  (sortedData[min]) = tmp;
             }
         }
-        this.setState({data: sortedData, field: "vis_km"});
+        setData(sortedData)
+        setField("vis_km")
     }
 
-    inputHandler(e) {
-      this.setState({inputText: e.target.value});
+    const inputHandler = async(e)=>{
+        setInputText(e.target.value)
+        const res = await fetch(`http://localhost:3000/users/location/search/${e.target.value}`, {
+        headers:{
+            'Authorization': `Bearer ${jwt}`
+        }
+      })
+      .then(res => res.json())
+
+      setData(res) 
     }
 
-    searchField() {
-      const data = this.state.data;
-      const field = this.state.field;
-      const inputText = this.state.inputText;
+    function searchField(inputText) {
+     
       let result = [];
 
       if (field === "temp_c") {
@@ -149,11 +167,10 @@ export default class UserTable extends React.Component {
       if (field === "wind_kph") {
         result = checkWindKphInput();
       }
-/*
+
       if (field === "wind_dir") {
         result = checkWindDirInput();
       }
-*/
 
       if (field === "humidity") {
         result = checkHumidityInput();
@@ -195,13 +212,12 @@ export default class UserTable extends React.Component {
         return searchresult;
       }
 
-      /*
+      
       function checkWindDirInput() {
         let searchresult = [];
         for (let i = 0; i < data.length; i++) {
           if(inputText !== "") {
             let boolCheck = data[i].weather.wind_dir.toString().includes(inputText);
-
             if (boolCheck === true) {
               searchresult.push(data[i].info.name);
             }
@@ -209,7 +225,7 @@ export default class UserTable extends React.Component {
         }
         return searchresult;
       }
-      */
+      
       
       function checkHumidityInput() {
         let searchresult = [];
@@ -267,34 +283,57 @@ export default class UserTable extends React.Component {
       
     }
 
-    render() {
-        return (
-            <>
-            <div>
-              <button onClick={() => this.fetchData()}>Fetch Live Weather</button>
-              <button onClick={() => this.logout()}>Logout</button>
+    return (
+        <Box sx={{display:'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <Box>
+                
                     <div>
-                          <span onClick={() => this.TempCsort()} scope="row"> temp_c&nbsp;&nbsp;&nbsp; </span>
-                          <span onClick={() => this.WindKphsort()} scope="row"> wind_kph&nbsp;&nbsp;&nbsp; </span>
-                          {/* <th onClick={() => this.WindDirsort()} scope="row"> wind_dir&nbsp;&nbsp;&nbsp; </th> */}
-                          <span onClick={() => this.Humiditysort()} scope="row"> humidity&nbsp;&nbsp;&nbsp; </span>
-                          <span onClick={() => this.PrecipMmsort()} scope="row"> precip_mm&nbsp;&nbsp;&nbsp; </span>
-                          <span onClick={() => this.VisKmsort()} scope="row"> vis_km&nbsp;&nbsp;&nbsp; </span>
+                            <Typography variant="body1" color="initial" display='inline'>Sort By   </Typography>
+                            <Button variant='contained' onClick={() => TempCsort()} scope="row"> temp_c</Button>
+                            <Button variant='contained' onClick={() => WindKphsort()} scope="row"> wind_kph</Button>
+                            <Button variant='contained' onClick={() => WindDirsort()} scope="row"> wind_dir</Button> 
+                            <Button variant='contained' onClick={() => Humiditysort()} scope="row"> humidity</Button>
+                            <Button variant='contained' onClick={() => PrecipMmsort()} scope="row"> precip_mm</Button>
+                            <Button variant='contained' onClick={() => VisKmsort()} scope="row"> vis_km</Button>
                     </div>
-                    <table className="table table-striped" >
-                    <tbody>
-                        {this.state.data.map(size => (
-                          <tr><td>{size.info.name}</td></tr>
+                    <TableContainer sx={{overFlowY: "scroll", height: 370}} component={Paper}>
+                    <Table sx={{ minWidth: 650}} size="small" aria-label="a dense table">
+                        <TableHead>
+                        <TableRow sx={{bgcolor: 'primary.main'}}>
+                            <TableCell>Location</TableCell>
+                        </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {data.map((location, i) => (
+                            <TableRow
+                            hover
+                            key={i}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell component="th" scope="row" onClick={()=>{navigate(`/user/location/${location.locationID}`)}} sx={{cursor: 'pointer'}} >
+                                    
+                                    {location.locationID}: {location.info.name}
+                                </TableCell>
+                            </TableRow>
                         ))}
-                    </tbody>
-                </table>
-            </div>
-            <div>
-              <label htmlFor="field">Enter keyword:</label>
-              <input type="search" name="field" id="field" onChange={(e) => this.inputHandler(e)}/>
-            </div>
-              {this.searchField()}
-            </>
-        );
-    }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Box>
+    <TextField 
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+            
+          }}
+          onChange={(e) => inputHandler(e)}
+          label="Location Name"
+          sx={{mt: 2}}
+        />
+        </Box>
+    );
+    
 }

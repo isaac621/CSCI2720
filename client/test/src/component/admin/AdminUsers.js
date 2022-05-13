@@ -1,13 +1,13 @@
-import { Typography } from "@mui/material"
+import { Button, Typography } from "@mui/material"
 import { Box } from "@mui/system"
 import { useState } from "react"
-import { Link, Outlet } from "react-router-dom"
+import { Link, Outlet, useNavigate } from "react-router-dom"
 import Style from "../../static/style"
 import AdminNav from "./AdminNav"
 
 
 export default function AdminUsers(){
-    
+    const navigate=useNavigate()
   
     return(
       <>
@@ -16,7 +16,7 @@ export default function AdminUsers(){
 
       <AdminNav/>
       <Box sx={Style.leftNav} className  = "adminVerNav" id = "adminUserNav">
-
+    
         <Link to="read">Read</Link>
         <Link to="create">Create</Link>
         <Link to="update">Update</Link>

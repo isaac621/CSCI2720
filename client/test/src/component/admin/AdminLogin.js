@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography'
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, Link, TextField } from '@mui/material';
 import Style from '../../static/style';
 
-export default function AdminLogin(){
+export default function AdminLogin({setTheme}){
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
     const navigate = useNavigate();
@@ -36,6 +36,11 @@ export default function AdminLogin(){
       }
           return 
       }
+
+      useEffect(()=>{
+        setTheme(false)
+      }, [])
+        
   
     return(
     
@@ -49,11 +54,12 @@ export default function AdminLogin(){
 
                 <Box sx={Style.loginContainer}>
                 <Typography variant="h4" color="secondary.main">Admin Login</Typography>    
-                    <TextField onChange={usernameOnChangeHandler} type="text" variant="filled" label="USERNAME" required="required"/>
-                   <TextField onChange={passwordOnChangeHandler} type="text" variant="filled" label="PASSWORD" required="required"/>
+                    <TextField onChange={usernameOnChangeHandler} type="text" variant="filled" label="USERNAME" />
+                   <TextField onChange={passwordOnChangeHandler} type="text" variant="filled" label="PASSWORD" />
 
-
-                     <Button variant="contained" onClick={loginOnClickHandler}>Login</Button>          
+                    
+                     <Button variant="contained" onClick={loginOnClickHandler}>Login</Button>  
+                     <Link onClick={()=>navigate('/login/user')}> Go to User Login</Link>           
 
               </Box>
           </Box>

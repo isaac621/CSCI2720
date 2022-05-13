@@ -30,7 +30,7 @@ export default function DeleteUser(){
     return(
         <Box sx={Style.formContainer}>
             <Typography variant="h4" color="initial">Delete User</Typography>
-            <Typography>Please enter the ID of the user you want to delete</Typography>
+            <Typography color="initial">Please enter the ID of the user you want to delete</Typography>
             <TextField onChange={(e)=>setUserID(e.target.value)} label="User ID"></TextField>
             <Button variant="contained" color="secondary" onClick={deleteUser}>Delete</Button>
             <Typography>{serverState}</Typography>

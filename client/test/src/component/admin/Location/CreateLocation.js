@@ -31,7 +31,7 @@ export default function CreateLocation(){
     return(
         <Box sx={Style.formContainer}>
             <Typography variant="h4" color="initial">Create Location</Typography>
-            <Typography>Please enter the name of the location you want to create</Typography>
+            <Typography color="initial">Please enter the name of the location you want to create</Typography>
             <TextField onChange={(e)=>setLocationName(e.target.value)} label="Location Name"></TextField>
             <Button variant="contained" color="secondary" onClick={createLocation}>Create</Button>
             <Typography>{serverState}</Typography>

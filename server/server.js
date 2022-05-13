@@ -7,6 +7,7 @@ require('dotenv').config()
 const fs = require('fs')
 const cors = require('cors')
 
+
 const {UserSchema, AdminSchema, LocationSchema} = require('./model')
 
 
@@ -133,6 +134,20 @@ app.get('/users/location/get/:locID', authenticateToken, async(req,res)=>{
     res.send(updatedLocation)
 
 
+})
+
+app.post('/users/theme', authenticateToken , async(req, res)=>{
+    const {theme} = req.body
+    req.user.theme = theme
+    req.user.save()
+
+    res.send()
+})
+
+app.get('/users/theme', authenticateToken , async(req, res)=>{
+
+    
+    res.send(req.user.theme)
 })
 
 app.get('/users/favorite', authenticateToken , async(req, res)=>{

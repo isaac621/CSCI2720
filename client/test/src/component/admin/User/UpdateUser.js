@@ -43,7 +43,7 @@ export default function UpdateUser(){
     return(
         <Box sx={Style.formContainer}>
             <Typography variant="h4" color="initial">Update User</Typography>
-            <Typography>Please enter the updated info of the user you want to udpate</Typography>
+            <Typography color="initial">Please enter the updated info of the user you want to udpate</Typography>
             <TextField onChange={(e)=>setUserID(e.target.value)} label="User ID"></TextField>
             <TextField onChange={(e)=>setUsername(e.target.value)} label="New Userame"></TextField>
             <TextField onChange={(e)=>setPassword(e.target.value)} label="New Password"></TextField>

@@ -30,7 +30,7 @@ export default function DeleteLocation(){
     return(
         <Box sx={Style.formContainer}>
             <Typography variant="h4" color="initial">Delete Location</Typography>
-            <Typography>Please enter the ID of the location you want to delete</Typography>
+            <Typography color="initial">Please enter the ID of the location you want to delete</Typography>
             <TextField onChange={(e)=>setLocationID(e.target.value)} label="Location ID"></TextField>
             <Button variant="contained" color="secondary" onClick={deleteLocation}>Delete</Button>
             <Typography>{serverState}</Typography>

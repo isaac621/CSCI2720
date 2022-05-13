@@ -1,8 +1,12 @@
-import { CircularProgress } from "@mui/material"
+import { Box, CircularProgress, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
-import LocationsMap from "./LocationsMap"
+import LoactionTable from "./LocationTable"
+import Map from "./Map"
+
 
 export default function AllLocations(){
+    const center = { lat: 0, lng: 0 }
+    const zoomLevel = 1
     const [fetchedData, setFetchedData] = useState()
     const [isBusy, setIsBusy] = useState(true)
     const fetchLocations = async() => {
@@ -32,7 +36,15 @@ export default function AllLocations(){
 
     return(
         <>
+        <Typography variant="h1" color="initial" sx={{mb: 3}}>Weather Box</Typography>
+        <Box sx={{width: '100%', display: 'flex', justifyContent: 'center', gap: 10}}>
             
+            <LoactionTable/>
+            <Map center={center}
+                   zoomLevel={zoomLevel} 
+                   
+            />
+        </Box>
         </>
     )
 }

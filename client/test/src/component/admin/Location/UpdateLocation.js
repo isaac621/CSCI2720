@@ -34,7 +34,7 @@ export default function UpdateLocation(){
     return(
         <Box sx={Style.formContainer}>
             <Typography variant="h4" color="initial">Update Location</Typography>
-            <Typography>Please enter the location ID you want to replace and its new location name</Typography>
+            <Typography color="initial">Please enter the location ID you want to replace and its new location name</Typography>
             <TextField onChange={(e)=>setLocationID(e.target.value)} label="Location ID"></TextField>
             <TextField onChange={(e)=>setLocationName(e.target.value)} label="Location Name"></TextField>
             <Button variant="contained" color="secondary" onClick={updateLocation} disabled ={!(locationID && locationName)}>Update</Button>

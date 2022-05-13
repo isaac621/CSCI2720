@@ -65,6 +65,7 @@ const Style = {
         width: '100vw',
         display: 'flex',
         justifyContent: 'flex-end',
+        alignItems: 'center',
         bgcolor: 'secondary.dark',
         py: .5
     },
@@ -83,9 +84,21 @@ const Style = {
     },
 
     mapContainer: {
-        width: '500px',
-        height: '400px'
+        left: 0,
+        top: 0,
+        display: 'relative',
+        height: '400px',
+        width: '500px'
+    },
+
+    buttonContainer: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-around',
+        py: 2
     }
+
+
 }
 
 export default Style

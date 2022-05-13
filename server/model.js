@@ -21,12 +21,14 @@ const LocationInfoSchema = new mongoose.Schema({
 const WeatherSchema = new mongoose.Schema({
     temp_c: Number,
     wind_kph: Number,
+    wind_dir: String,
     precip_mm: Number,
     humidity: Number,
     vis_km: Number
 })
 
 const UserSchema = new mongoose.Schema({
+    theme: Boolean,
     userID: Number,
     username: String,
     password: String,

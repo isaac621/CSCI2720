@@ -1,20 +1,57 @@
-import { Box, Button, Divider, Stack } from "@mui/material";
+import { Box, Button, Divider, Stack, Switch, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import Style from "../../static/style";
 
-export default function UserNav(){
+export default function UserNav({setTheme, theme}){
     const navigate = useNavigate();
+    const jwt = localStorage.getItem('jwt')
     const logoutOnClickHandler = ()=>{
       localStorage.removeItem('jwt')
       navigate('/login/user', {replace: true})
-  
-      
-
 
     }
+
+    const [username, setUsername] = useState('')
+
+    const fetchUserName = async() =>{
+      
+       const res = await fetch('http://localhost:3000/users/username', {
+         headers: {
+            'Authorization': `Bearer ${jwt}`
+         }
+
+        }).then(res=>res.text())
+        
+      setUsername(res)
+
+    }
+
+    const switchOnClickHandler = async () =>{
+      const value = !theme
+      setTheme(value)
+      await fetch('http://localhost:3000/users/theme', {
+        method: 'POST',
+         headers: {
+            'Authorization': `Bearer ${jwt}`,
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+           theme: value
+         })
+
+        })
+    }
+
+    useEffect(()=>{
+      fetchUserName()
+    }, [])
     return (
       <Box sx={Style.nav} > 
-
+        <Box sx={{position: 'absolute', left: 50, display: 'flex', alignItems: 'center'}}>
+          <Typography variant="body1" color="primary.light" >Username: {username} </Typography>
+          <Switch onClick={switchOnClickHandler} checked={theme} />
+        </Box>
         <Stack
         direction="row"
         divider={<Divider orientation="vertical" flexItem />}
@@ -26,9 +63,7 @@ export default function UserNav(){
                 </Button>
         
 
-                <Button onClick={()=>navigate('/user/search')} variant="text">
-                    Search
-                </Button>
+
 
                 <Button onClick={()=>navigate('/user/favorite')} variant="text">
                     Favourite
