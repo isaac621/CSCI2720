@@ -103,6 +103,21 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJjYWM1
 GET http://localhost:3000/users/username
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJjYWM1NGZhZWZlMTc1MGM4NzYxMSIsImlhdCI6MTY1MDE5MTI1NH0.JGcuH6LOx0hPhQyjU2Rm9ZzD0BsLQWx5JOTkXIo6mcM
 
+####
+POST http://localhost:3000/users/theme
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJjYWM1NGZhZWZlMTc1MGM4NzYxMSIsImlhdCI6MTY1MDE5MTI1NH0.JGcuH6LOx0hPhQyjU2Rm9ZzD0BsLQWx5JOTkXIo6mcM
+
+{
+    "theme": true
+}
+
+####
+GET   http://localhost:3000/users/theme
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJjYWM1NGZhZWZlMTc1MGM4NzYxMSIsImlhdCI6MTY1MDE5MTI1NH0.JGcuH6LOx0hPhQyjU2Rm9ZzD0BsLQWx5JOTkXIo6mcM
+
+
 
 #===========================
 # Admin 
