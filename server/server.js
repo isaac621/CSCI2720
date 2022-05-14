@@ -6,7 +6,7 @@ const fetch = require('node-fetch')
 require('dotenv').config()
 const fs = require('fs')
 const cors = require('cors')
-
+const path = require('path')
 
 const {UserSchema, AdminSchema, LocationSchema} = require('./model')
 
@@ -32,7 +32,10 @@ app.use(cors({
     origin: '*'
 }))
 
-app.use('/app', express.static('build'))
+app.use(express.static(path.join(__dirname, 'build')))
+app.get('/app', (req, res)=>{
+    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
 
 app.use((req, res, next)=>{
 
