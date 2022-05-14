@@ -91,13 +91,13 @@ function App() {
 
 
 
-          <Route path="/admin/location" element={<AdminLocation/>}>
+          <Route path="/admins/location" element={<AdminLocation/>}>
             <Route path="create" element = {<CreateLocation/>}/>
             <Route path="delete" element = {<DeleteLocation/>}/>
             <Route path="update" element = {<UpdateLocation/>}/>
             <Route path="read" element = {<ReadLocations/>}/>
           </Route>
-          <Route path="/admin/users" element={<AdminUsers/>}>
+          <Route path="/admins/users" element={<AdminUsers/>}>
             <Route path="create" element = {<CreateUser/>}/>
             <Route path="delete" element = {<DeleteUser/>}/>
             <Route path="update" element = {<UpdateUser/>}/>

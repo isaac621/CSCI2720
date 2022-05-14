@@ -21,12 +21,12 @@ export default function AdminNav(){
         spacing={2}
         >
               
-                    <Button onClick={()=>navigate('/admin/users')} variant="text">
+                    <Button onClick={()=>navigate('/admins/users')} variant="text">
                         User
                     </Button>
           
     
-                    <Button onClick={()=>navigate('/admin/location')} variant="text">
+                    <Button onClick={()=>navigate('/admins/location')} variant="text">
                         Location
                     </Button>
       

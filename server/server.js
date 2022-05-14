@@ -112,7 +112,7 @@ app.post('/users/login', async (req, res)=>{
 })
 
 app.get('/users/location/get/:locID', authenticateToken, async(req,res)=>{
-    
+    try{
     const {locID} = req.params
     const location = await Location.findOne({locationID: locID})
 
@@ -134,7 +134,12 @@ app.get('/users/location/get/:locID', authenticateToken, async(req,res)=>{
 
     const updatedLocation = await Location.findOne({locationID: locID})
 
-    res.send(updatedLocation)
+    return res.send(updatedLocation)
+
+    }
+    catch{
+        return res.sendStatus(500)
+    }
 
 
 })
@@ -196,25 +201,32 @@ app.delete('/users/favorite/delete/:locID', authenticateToken , async(req, res)=
 })
 
 app.get('/users/locations', authenticateToken, async(req,res)=>{
-    const locations = await Location.find()
+    try{
 
-    locations.forEach(async(location)=>{
-        const weather = await fetch(`http://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=${location.info.name}`).then(res=>res.json()).then(res=>res.current)
-        location.weather = {
-            temp_c: weather.temp_c,
-            wind_kph: weather.wind_kph,
-            wind_dir: weather.wind_dir,
-            precip_mm: weather.precip_mm,
-            humidity: weather.humidity,
-            vis_km: weather.vis_km
-        }
+        const locations = await Location.find()
+    
+        locations.forEach(async(location)=>{
+            const weather = await fetch(`http://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=${location.info.name}`).then(res=>res.json()).then(res=>res.current)
+            location.weather = {
+                temp_c: weather.temp_c,
+                wind_kph: weather.wind_kph,
+                wind_dir: weather.wind_dir,
+                precip_mm: weather.precip_mm,
+                humidity: weather.humidity,
+                vis_km: weather.vis_km
+            }
+    
+            await location.save();
+        })
+    
+        const updatedLocations = await Location.find()
+    
+        return res.send(updatedLocations)
+    }
+    catch{
+        return res.sendStatus(500)
+    }
 
-        await location.save();
-    })
-
-    const updatedLocations = await Location.find()
-
-    return res.send(updatedLocations)
 })
 
 app.get('/users/location/search/:nameQuery?', authenticateToken, async(req, res)=>{

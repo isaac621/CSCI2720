@@ -1,3 +1,3 @@
-const serverURL = 'http://174.129.59.87:80'
+const serverURL = 'http://54.234.143.187'
 
 export default serverURL

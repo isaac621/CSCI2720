@@ -33,7 +33,7 @@ export default function AdminLogin({setTheme}){
       })
       if(res.ok){
         await res.json().then(res=>localStorage.setItem('jwt', res.accessToken)).catch(err=>console.log(err))
-        navigate('/admin/location', {replace: true})
+        navigate('/admins/location', {replace: true})
       }
           return 
       }
