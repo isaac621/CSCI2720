@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from "react-router-dom";
-import serverURL from "../../../constant";
+import serverURL from "../../constant";
 
 export default function UserTable(){
 

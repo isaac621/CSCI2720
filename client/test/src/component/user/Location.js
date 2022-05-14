@@ -16,7 +16,7 @@ import { Button, Paper, Table, TableBody, TableCell, TableContainer, Card, Table
 import { Input, notification } from 'antd';
 import Map from './Map';
 import Style from '../../static/style';
-import serverURL from '../../../constant';
+import serverURL from '../../constant';
 
 
 

@@ -1,7 +1,7 @@
 import { Box, Button, Divider, Stack, Switch, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
-import serverURL from "../../../constant";
+import serverURL from "../../constant";
 import Style from "../../static/style";
 
 export default function UserNav({setTheme, theme}){

@@ -10,7 +10,7 @@ import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Skeleton, Box } from '@mui/material';
 import Style from '../../static/style';
-import serverURL from '../../../constant';
+import serverURL from '../../constant';
 
 function Map({center, zoomLevel}) {
     let navigate = useNavigate()

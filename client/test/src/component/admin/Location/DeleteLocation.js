@@ -1,6 +1,6 @@
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { useState } from "react"
-import serverURL from "../../../../constant"
+import serverURL from "../../../constant"
 import Style from "../../../static/style"
 
 export default function DeleteLocation(){

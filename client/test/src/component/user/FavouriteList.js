@@ -7,7 +7,7 @@ import 'antd/dist/antd.css';
 import { SearchOutlined } from '@ant-design/icons';
 import { List, ListItem, ListItemButton, ListItemIcon, Skeleton, Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import serverURL from '../../../constant';
+import serverURL from '../../constant';
 
 function FavouriteList() {
     let navigate = useNavigate()

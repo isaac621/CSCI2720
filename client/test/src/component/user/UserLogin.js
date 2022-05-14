@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography'
 import { Box, Button, Link, TextField } from '@mui/material';
 import Style from '../../static/style';
-import serverURL from '../../../constant';
+import serverURL from '../../constant';
 
 export default function UserLogin({setTheme}){
     const [username, setUsername] = useState()

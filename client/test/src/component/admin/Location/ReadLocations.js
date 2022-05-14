@@ -8,7 +8,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import { useTheme } from "@emotion/react";
-import serverURL from "../../../../constant";
+import serverURL from "../../../constant";
 
 function TablePaginationActions(props) {
     const theme = useTheme();

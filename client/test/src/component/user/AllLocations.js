@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
-import serverURL from "../../../constant"
+import serverURL from "../../constant"
 import LoactionTable from "./LocationTable"
 import Map from "./Map"
 

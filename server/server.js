@@ -25,14 +25,14 @@ const Admin = mongoose.model('Admin', AdminSchema)
 const Location = mongoose.model('Location', LocationSchema)
 
 const app = express()
-app.listen(3000)
+app.listen(80)
 
 app.use(express.json())
 app.use(cors({
     origin: '*'
 }))
 
-
+app.use('/app', express.static('build'))
 
 app.use((req, res, next)=>{
 
