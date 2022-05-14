@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './static/2720proj.css';
 import './static/LEMONMILK-Regular.otf';
-import './static/favicon.ico'
 
 
 import AdminUsers from "./component/admin/AdminUsers";

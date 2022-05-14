@@ -1,17 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.451d6203.css",
-    "main.js": "/static/js/main.0f1325bf.js",
-    "static/media/header.jpg": "/static/media/header.9147bc16de63f7f5759c.jpg",
-    "static/media/background.jpg": "/static/media/background.2edf4cd7b87549e57788.jpg",
-    "static/media/LEMONMILK-Regular.otf": "/static/media/LEMONMILK-Regular.55fc24317b9c2b507dd8.otf",
-    "index.html": "/index.html",
-    "static/media/favicon.ico": "/static/media/favicon.dac30ad9930be00bcf63.ico",
-    "main.451d6203.css.map": "/static/css/main.451d6203.css.map",
-    "main.0f1325bf.js.map": "/static/js/main.0f1325bf.js.map"
+    "main.css": "./static/css/main.0be9c355.css",
+    "main.js": "./static/js/main.0c11cb5e.js",
+    "static/media/header.jpg": "./static/media/header.9147bc16de63f7f5759c.jpg",
+    "static/media/background.jpg": "./static/media/background.2edf4cd7b87549e57788.jpg",
+    "static/media/LEMONMILK-Regular.otf": "./static/media/LEMONMILK-Regular.55fc24317b9c2b507dd8.otf",
+    "index.html": "./index.html",
+    "main.0be9c355.css.map": "./static/css/main.0be9c355.css.map",
+    "main.0c11cb5e.js.map": "./static/js/main.0c11cb5e.js.map"
   },
   "entrypoints": [
-    "static/css/main.451d6203.css",
-    "static/js/main.0f1325bf.js"
+    "static/css/main.0be9c355.css",
+    "static/js/main.0c11cb5e.js"
   ]
 }
