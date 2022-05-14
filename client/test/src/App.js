@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import './static/2720proj.css';
 import './static/LEMONMILK-Regular.otf';
 
@@ -75,7 +75,7 @@ function App() {
   return (
     <ThemeProvider theme={theme ? darkTheme: lightTheme}>
       <div className="App">
-        <BrowserRouter>
+        <HashRouter>
         <Routes>
           <Route path="/login/admin" element={<AdminLogin setTheme={setTheme}/>} />
           <Route path="/login/user" element={<UserLogin setTheme={setTheme}/>} />
@@ -105,7 +105,7 @@ function App() {
 
           </Route>
         </Routes>
-        </BrowserRouter>
+        </HashRouter>
         
       </div>
     </ThemeProvider>
