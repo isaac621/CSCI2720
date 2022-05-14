@@ -25,7 +25,7 @@ const Admin = mongoose.model('Admin', AdminSchema)
 const Location = mongoose.model('Location', LocationSchema)
 
 const app = express()
-app.listen(80)
+app.listen(3000)
 
 app.use(express.json())
 app.use(cors({
