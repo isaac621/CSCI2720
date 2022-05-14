@@ -8,6 +8,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import { useTheme } from "@emotion/react";
+import serverURL from "../../../../constant";
 
 function TablePaginationActions(props) {
     const theme = useTheme();
@@ -91,7 +92,7 @@ export default function ReadUsers(){
 
     const fetchUpcoming = async()=>{
         const jwt=localStorage.getItem('jwt')
-        const users = await fetch(`http://localhost:3000/admin/users/read`, {
+        const users = await fetch(`${serverURL}/admin/users/read`, {
           headers:{
               'Authorization': `Bearer ${jwt}`
           }})

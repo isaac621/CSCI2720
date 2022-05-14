@@ -1,5 +1,6 @@
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { useState } from "react"
+import serverURL from "../../../../constant"
 import Style from "../../../static/style"
 
 export default function UpdateLocation(){
@@ -10,7 +11,7 @@ export default function UpdateLocation(){
       
     const updateLocation = async()=>{
         const jwt=localStorage.getItem('jwt')
-        const res = await fetch('http://localhost:3000/admin/location/update',
+        const res = await fetch(`${serverURL}/admin/location/update`,
         {
             method: 'POST',
             headers: {

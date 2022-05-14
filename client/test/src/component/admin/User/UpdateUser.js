@@ -1,5 +1,6 @@
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { useState } from "react"
+import serverURL from "../../../../constant"
 import Style from "../../../static/style"
 
 export default function UpdateUser(){
@@ -20,7 +21,7 @@ export default function UpdateUser(){
             updateInfo['password'] = password
         }
 
-        const res = await fetch('http://localhost:3000/admin/users/update',
+        const res = await fetch(`${serverURL}/admin/users/update`,
         {
             method: 'POST',
             headers: {

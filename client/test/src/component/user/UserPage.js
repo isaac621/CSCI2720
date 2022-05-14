@@ -9,7 +9,7 @@ export default function UserPage({setTheme, theme}){
   const [themeValue, setThemeValue] = useState(false)  
   const getTheme = async()=>{
     const jwt = localStorage.getItem('jwt')
-    const res = await fetch('http://localhost:3000/users/theme', {
+    const res = await fetch(`${serverURL}/users/theme`, {
          headers: {
             'Authorization': `Bearer ${jwt}`
          }

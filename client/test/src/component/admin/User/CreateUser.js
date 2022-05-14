@@ -1,5 +1,6 @@
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { useState } from "react"
+import serverURL from "../../../../constant"
 import Style from "../../../static/style"
 
 export default function CreateUser(){
@@ -10,7 +11,7 @@ export default function CreateUser(){
 
     const createUser = async()=>{
         const jwt = localStorage.getItem('jwt')
-        const res = await fetch('http://localhost:3000/admin/users/create',
+        const res = await fetch(`${serverURL}/admin/users/create`,
         {
             method: 'POST',
             headers: {

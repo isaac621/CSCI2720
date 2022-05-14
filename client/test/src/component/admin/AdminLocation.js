@@ -1,6 +1,7 @@
 import { Box, Typography, Button } from "@mui/material"
 import { useState } from "react"
 import { Link, Outlet, Route, Router, Routes } from "react-router-dom"
+import serverURL from "../../../constant"
 import Style from "../../static/style"
 import AdminNav from "./AdminNav"
 
@@ -13,7 +14,7 @@ export default function AdminLocation(){
 
   
     const updateLocationData = async()=>{
-      const res = await fetch('http://localhost:3000/admin/updateLocationsData', {
+      const res = await fetch(`${serverURL}/admin/updateLocationsData`, {
           headers:{
               'Authorization': `Bearer ${jwt}`
           }

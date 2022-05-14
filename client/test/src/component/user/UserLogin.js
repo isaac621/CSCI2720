@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography'
 import { Box, Button, Link, TextField } from '@mui/material';
 import Style from '../../static/style';
+import serverURL from '../../../constant';
 
 export default function UserLogin({setTheme}){
     const [username, setUsername] = useState()
@@ -18,7 +19,7 @@ export default function UserLogin({setTheme}){
     }
   
     const loginOnClickHandler = async()=>{
-        const res = await fetch('http://localhost:3000/users/login',
+        const res = await fetch(`${serverURL}/users/login`,
         {
             method: 'POST',
             headers: {

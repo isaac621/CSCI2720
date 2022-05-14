@@ -10,6 +10,7 @@ import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Skeleton, Box } from '@mui/material';
 import Style from '../../static/style';
+import serverURL from '../../../constant';
 
 function Map({center, zoomLevel}) {
     let navigate = useNavigate()
@@ -25,7 +26,7 @@ function Map({center, zoomLevel}) {
     const fetchLocations = async () => {
         const jwt = localStorage.getItem('jwt')
         setLoading(true);
-        const res = await fetch('http://localhost:3000/users/locations', {
+        const res = await fetch(`${serverURL}/users/locations`, {
             headers: {
                 'Authorization': `Bearer ${jwt}`
             }

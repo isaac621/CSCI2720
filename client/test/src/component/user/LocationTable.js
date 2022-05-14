@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from "react-router-dom";
+import serverURL from "../../../constant";
 
 export default function UserTable(){
 
@@ -13,7 +14,7 @@ export default function UserTable(){
     const navigate = useNavigate()
 
     const fetchData = async()=>{
-      const res = await fetch(`http://localhost:3000/users/locations`, {
+      const res = await fetch(`${serverURL}/users/locations`, {
         headers:{
             'Authorization': `Bearer ${jwt}`
         }
@@ -146,7 +147,7 @@ export default function UserTable(){
 
     const inputHandler = async(e)=>{
         setInputText(e.target.value)
-        const res = await fetch(`http://localhost:3000/users/location/search/${e.target.value}`, {
+        const res = await fetch(`${serverURL}/users/location/search/${e.target.value}`, {
         headers:{
             'Authorization': `Bearer ${jwt}`
         }

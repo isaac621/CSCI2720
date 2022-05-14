@@ -1,5 +1,6 @@
 import { Box, CircularProgress, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
+import serverURL from "../../../constant"
 import LoactionTable from "./LocationTable"
 import Map from "./Map"
 
@@ -12,8 +13,8 @@ export default function AllLocations(){
     const fetchLocations = async() => {
         const jwt = localStorage.getItem('jwt')
        
-  
-        const res = await fetch('http://localhost:3000/users/locations', {
+
+        const res = await fetch(`${serverURL}/users/locations`, {
             headers:{
                 'Authorization': `Bearer ${jwt}`
             }

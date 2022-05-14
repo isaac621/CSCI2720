@@ -1,5 +1,6 @@
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { useState } from "react"
+import serverURL from "../../../../constant"
 import Style from "../../../static/style"
 
 export default function DeleteUser(){
@@ -8,7 +9,7 @@ export default function DeleteUser(){
 
     const deleteUser = async()=>{
         const jwt=localStorage.getItem('jwt')
-        const res = await fetch('http://localhost:3000/admin/users/delete', {
+        const res = await fetch(`${serverURL}/admin/users/delete`, {
           method: 'DELETE',
             headers:{
                 'Authorization': `Bearer ${jwt}`,

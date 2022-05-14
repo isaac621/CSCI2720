@@ -7,6 +7,7 @@ import 'antd/dist/antd.css';
 import { SearchOutlined } from '@ant-design/icons';
 import { List, ListItem, ListItemButton, ListItemIcon, Skeleton, Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import serverURL from '../../../constant';
 
 function FavouriteList() {
     let navigate = useNavigate()
@@ -17,7 +18,7 @@ function FavouriteList() {
     const fetchFavourite = async () => {
         const jwt = localStorage.getItem('jwt')
         setLoading(true);
-        const res = await fetch(`http://localhost:3000/users/favorite`, {
+        const res = await fetch(`${serverURL}/users/favorite`, {
             headers: {
                 'Authorization': `Bearer ${jwt}`
             }

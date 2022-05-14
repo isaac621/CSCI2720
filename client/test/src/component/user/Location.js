@@ -16,6 +16,7 @@ import { Button, Paper, Table, TableBody, TableCell, TableContainer, Card, Table
 import { Input, notification } from 'antd';
 import Map from './Map';
 import Style from '../../static/style';
+import serverURL from '../../../constant';
 
 
 
@@ -41,8 +42,8 @@ function Location() {
     const fetchLocationAndUserList = async() => {
         const jwt = localStorage.getItem('jwt')
         // console.log(jwt)
-  
-        let res = await fetch(`http://localhost:3000/users/location/get/${locationID}`, {
+
+        let res = await fetch(`${serverURL}/users/location/get/${locationID}`, {
             headers:{
                 'Authorization': `Bearer ${jwt}`
             }
@@ -74,7 +75,7 @@ function Location() {
 
        
         setLoading(true);
-        res = await fetch(`http://localhost:3000/users/favorite`, {
+        res = await fetch(`${serverURL}/users/favorite`, {
             headers: {
                 'Authorization': `Bearer ${jwt}`
             }
@@ -111,7 +112,7 @@ function Location() {
         } else {
             notification.success({ message: 'Location is added SUCCESSFULLY' });
             setLoading(true);
-            const res = await fetch(`http://localhost:3000/users/favorite/create/${locationID}`, {
+            const res = await fetch(`${serverURL}/users/favorite/create/${locationID}`, {
                 headers: {
                     'Authorization': `Bearer ${jwt}`
                 },
@@ -129,7 +130,7 @@ function Location() {
     const createComments = async () => {
         const jwt = localStorage.getItem('jwt')
         setLoading(true);
-        const res = await fetch(`http://localhost:3000/users/comment`, {
+        const res = await fetch(`${serverURL}/users/comment`, {
             method: "POST",
 
             body: JSON.stringify({
