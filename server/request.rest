@@ -29,7 +29,7 @@ Content-Type: application/json
 ###Non-user 1
 #a token string will be returned after successful login, please store the token string in the local storage of user broswer. Otherwise, the user cannot access any function of the api. You can access the token by res.accessToken after doing JSON parse to the response
 
-POST http://localhost:3000/users/login
+POST 44.201.127.180:3000/users/login
 Content-Type: application/json
 
 {

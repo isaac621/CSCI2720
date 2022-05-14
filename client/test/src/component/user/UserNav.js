@@ -1,6 +1,7 @@
 import { Box, Button, Divider, Stack, Switch, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
+import serverURL from "../../../constant";
 import Style from "../../static/style";
 
 export default function UserNav({setTheme, theme}){
@@ -16,7 +17,7 @@ export default function UserNav({setTheme, theme}){
 
     const fetchUserName = async() =>{
       
-       const res = await fetch('http://localhost:3000/users/username', {
+       const res = await fetch(`${serverURL}/users/username`, {
          headers: {
             'Authorization': `Bearer ${jwt}`
          }
@@ -30,7 +31,7 @@ export default function UserNav({setTheme, theme}){
     const switchOnClickHandler = async () =>{
       const value = !theme
       setTheme(value)
-      await fetch('http://localhost:3000/users/theme', {
+      await fetch(`${serverURL}/users/theme`, {
         method: 'POST',
          headers: {
             'Authorization': `Bearer ${jwt}`,
